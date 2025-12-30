@@ -62,22 +62,22 @@ Este projeto marcou minha evolução como desenvolvedor. Mais do que aplicar sin
 
    3. Instale as dependências:
     ```bash
-pip install -r requirements.txt
+    pip install -r requirements.txt
 
     ```
 
 
 4. Execute as migrações:
 ```bash
-    python manage.py migrate
+    
+ python manage.py migrate
 
 ```
 
 
-   5. Inicie o servidor:
+5. Inicie o servidor:
 ```bash
 python manage.py runserver
-
 ```
 
 
