@@ -46,40 +46,6 @@ Este projeto marcou minha evolução como desenvolvedor. Mais do que aplicar sin
 
 ---
 
-## ⚙️ Como rodar o projeto localmente
-
-1. Clone o repositório:
-    ```bash
-  git clone [https://github.com/FelipeHoffmannV/pellet_production_manager.git](https://github.com/FelipeHoffmannV/pellet_production_manager.git)
-
-    ```
-2. Crie um ambiente virtual:
-    ```bash
-  python -m venv venv
-
-    ```
-
-
-   3. Instale as dependências:
-    ```bash
-    pip install -r requirements.txt
-
-    ```
-
-
-4. Execute as migrações:
-```bash
-    
- python manage.py migrate
-
-```
-
-
-5. Inicie o servidor:
-```bash
-python manage.py runserver
-```
-
 
 ## 🤝 Contribuições
 
