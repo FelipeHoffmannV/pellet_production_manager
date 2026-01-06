@@ -29,12 +29,6 @@ O sistema permite que o operador realize os apontamentos em tempo real através 
 
 ---
 
-## 🚀 Principais Funcionalidades (Em desenvolvimento)
-- [x] Cadastro de ordens de produção.
-- [ ] Registro de tempos produtivos e paradas.
-- [ ] Validações automáticas de jornada.
-- [ ] Dashboard de produtividade diária.
-- [ ] Exportação de relatórios (CSV/PDF).
 
 ---
 
