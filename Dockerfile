@@ -2,9 +2,9 @@ FROM python:3.12-slim
 
 ENV PYTHONUNBUFFERED=1
 
-WORKDIR /app
+WORKDIR /pellet_production_manager
 
-COPY requirements.txt /app/
+COPY requirements.txt /pellet_production_manager/
 
 RUN apt-get update && apt-get install -y libpq-dev gcc
 
