@@ -1,3 +1,4 @@
+{% load bootstrap5 %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -21,30 +22,12 @@
   <body>
     <div class="container">
 
-        <form class="row g-3 needs-validation" novalidate>
-  <div class="col-md-4">
-    <label for="validationCustom01" class="form-label">Quantidade de pallets produzidos</label>
-    <input type="number" class="form-control" id="validationCustom01" required>
-  </div>
-  <div class="col-md-4">
-    <label for="validationCustom02" class="form-label">Turno</label>
-    <input type="number" class="form-control" id="validationCustom02" required>
-  </div>
-  <div class="col-md-4">
-    <label for="validationCustomUsername" class="form-label">Data</label>
-    <div class="input-group has-validation">
-      <input type="date" class="form-control" id="validationCustomUsername" aria-describedby="inputGroupPrepend" required>
-    </div>
-  </div>
-  <div class="col-md-6">
-    <label for="validationCustom03" class="form-label">Quantidade de amido utilizado (sacos)</label>
-    <input type="number" class="form-control" id="validationCustom03" required>
-  </div>
-
-  <div class="col-12">
-    <button class="btn btn-primary" type="submit">Enviar produção</button>
-  </div>
-</form>
+      <h2>Preencha o formulário de produção</h2>
+        <form method="post" class="row g-3 needs-validation" novalidate>
+          {% csrf_token %}
+          {% bootstrap_form form %}
+          <button class="btn btn-primary">Enviar</button>
+        </form>
 
     </div>
 

@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
-from .forms import LoginForm
+from .forms import LoginForm, EntradaProducaoForm
 # Create your views here.
 def index(request):
     if request.method == 'POST':
@@ -25,4 +25,12 @@ from django.contrib.auth.decorators import login_required
 
 @login_required(login_url='')
 def producao(request):
-    return render(request, 'entradaProducao.html')
+    if request.method == 'POST':
+        form = EntradaProducaoForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('producao')
+    else:
+        form = EntradaProducaoForm()
+
+    return render(request, 'entradaProducao.html' , {'form': form})

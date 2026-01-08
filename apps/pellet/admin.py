@@ -8,4 +8,4 @@ class UsuarioAdmin(admin.ModelAdmin):
 
 admin.site.register(EntradaProducao)
 class EntradaProducaoAdmin(admin.ModelAdmin):
-    list_display = ('turno', 'data', 'quantidade')
+    list_display = ('maquina', 'turno', 'data', 'codigoCliente', 'lote', 'quantidadeProduzida', 'numeroDeFuncionarios', 'motivoParada', 'observacoes')
