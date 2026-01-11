@@ -1,10 +1,50 @@
 services:
+  db:
+    image: postgres:13-alpine
+    container_name: postgres_db
+    environment:
+      POSTGRES_DB: pellets_manager_db
+      POSTGRES_USER: pellets
+      POSTGRES_PASSWORD: pellets@db?
+    
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U pellets -d pellets_manager_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+
+    volumes:
+        - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  pgadmin:
+    image: dpage/pgadmin4
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: pellets@pellets.com
+      PGADMIN_DEFAULT_PASSWORD: pellets@123?
+    ports:
+      - "8080:80"
   web:
     build: .
+    container_name: django_web
     command: python manage.py runserver 0.0.0.0:8000
     volumes:
       - .:/config
     ports:
       - "8000:8000"
+    depends_on:
+      db:
+        condition: 'service_healthy'
     environment:
-      - DEBUG=1
+       - DEBUG=1
+       - DB_NAME=pellets_manager_db
+       - DB_USER=pellets
+       - DB_PASS=pellets@db?
+       - DB_HOST=db
+       - DB_PORT=5432
+
+volumes:
+  postgres_data:

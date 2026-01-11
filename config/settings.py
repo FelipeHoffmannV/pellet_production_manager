@@ -77,10 +77,15 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'pellets_manager_db',
+        'USER': 'pellets',
+        'PASSWORD': 'pellets@db?',
+        'HOST': 'db',       # <--- ISSO É O MAIS IMPORTANTE (nome do serviço no compose)
+        'PORT': '5432',     # <--- Use a porta interna do container (sempre 5432)
     }
 }
+
 
 
 
