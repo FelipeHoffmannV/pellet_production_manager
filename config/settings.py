@@ -75,18 +75,25 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'pellets_manager_db',
-        'USER': 'pellets',
-        'PASSWORD': 'pellets@db?',
-        'HOST': 'db',       # <--- ISSO É O MAIS IMPORTANTE (nome do serviço no compose)
-        'PORT': '5432',     # <--- Use a porta interna do container (sempre 5432)
+if DEBUG:
+    DATABASES = {
+           'default': {
+               'ENGINE': 'django.db.backends.sqlite3',
+               'NAME': BASE_DIR / 'db.sqlite3',
+        }
     }
-}
+else:
 
-
+   DATABASES = {
+            'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': 'pellets_manager_db',
+            'USER': 'pellets',
+            'PASSWORD': 'pellets@db?',
+            'HOST': 'db',      
+            'PORT': '5432',     
+        }
+    }
 
 
 
