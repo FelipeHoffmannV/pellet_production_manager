@@ -34,6 +34,9 @@ class EntradaProducao(models.Model):
     motivoParada = models.CharField(max_length=100, choices=MOTIVOS_DE_PARADA)
     observacoes = models.TextField()
 
+    tempoParado = models.FloatField(null=True)
+    tempoProduzido = models.FloatField(null=True)
+
 
 
     def __str__(self):

@@ -11,3 +11,5 @@ class EntradaProducaoForm(forms.ModelForm):
         model = EntradaProducao
 
         fields = '__all__'
+
+        exclude = ['tempoParado', 'tempoProduzido']

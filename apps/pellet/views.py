@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from .forms import LoginForm, EntradaProducaoForm
+from .service import processar_tempo_producao
 # Create your views here.
 def index(request):
     if request.method == 'POST':
@@ -23,14 +24,27 @@ def index(request):
 
 from django.contrib.auth.decorators import login_required
 
-@login_required(login_url='')
+@login_required(login_url='index')
 def producao(request):
     if request.method == 'POST':
         form = EntradaProducaoForm(request.POST)
         if form.is_valid():
-            form.save()
+
+            producao_instancia = form.save()
+
+            resultados = processar_tempo_producao(producao_instancia)
+
+    
+            producao_instancia.tempoParado = resultados['tempo_perdido']
+            producao_instancia.tempoProduzido = resultados['tempo_trabalhado']
+            
+
+            producao_instancia.save()
+
             return redirect('producao')
     else:
         form = EntradaProducaoForm()
 
     return render(request, 'entradaProducao.html' , {'form': form})
+
+
