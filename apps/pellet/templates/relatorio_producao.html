@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        @page { size: a4; margin: 1cm; }
+        th { border-bottom: 1px solid #000; text-align: left; }
+        td { padding: 5px; }
+    </style>
+</head>
+<body>
+    <h1>Relatório de Entrada de Produção</h1>
+    <table width="100%">
+        <thead>
+            <tr>
+                <th>Máquina</th>
+                <th>Data</th>
+                <th>Lote</th>
+                <th>Qtd</th>
+                <th>Tempo produzido</th>
+                <th>Tempo parado</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for p in producoes %}
+            <tr>
+                <td>{{ p.maquina }}</td>
+                <td>{{ p.data }}</td>
+                <td>{{ p.lote }}</td>
+                <td>{{ p.quantidadeProduzida }}</td>
+                <td>{{ p.tempoProduzido }}</td>
+                <td>{{ p.tempoParado }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
