@@ -20,6 +20,7 @@ from apps.pellet import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.index, name='login'),
-    path('producao/', views.producao, name='producao')
+    path('', views.home_global, name='home_global'),
+    path('login_user/', views.login_user, name='login_user'),
+    path('login_admin/', views.login_admin, name='login_admin'),
 ]

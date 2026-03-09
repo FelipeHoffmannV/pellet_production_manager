@@ -1,43 +1,58 @@
 from django.db import models
-from django.contrib.auth.models import AbstractUser
 
-# Create your models here.
-class Usuario(AbstractUser):
+class Cliente(models.Model):
+    id = models.AutoField(primary_key=True)
+    nome = models.CharField(max_length=200)
+    cnpj = models.CharField(max_length=18, unique=True)
+
+    def __str__(self):
+        return self.nome
+
+class Lote(models.Model):
+    id = models.AutoField(primary_key=True)
+    STATUS_CHOICES = [
+        ('PLANEJADO', 'Planejado'),
+        ('PRODUZINDO', 'Em Produção'),
+        ('FINALIZADO', 'Finalizado'),
+    ]
     
-    def __str__(self):
-        return self.username
-
-
-class EntradaProducao(models.Model):
-    TURNOS = [
-        ('1', '1 - Turno'),
-        ('2', '2 - Turno'),
-        ('3', '3 - Turno'),
-    ]
-
-    MAQUINA = [('01', 'PEL - 01')]
-
-    MOTIVOS_DE_PARADA = [
-        ('Mecânica', 'Manutenção Mecânica'),
-        ('Elétrica', 'Manutenção Elétrica'),
-        ('Falta de material', 'Falta de Cavaco Seco'),
-        ('Setup', 'Ajustes na Máquina'),
-    ]
-
-    maquina = models.CharField(max_length=2, choices=MAQUINA)
-    turno = models.CharField(max_length=2, choices=TURNOS)
-    data = models.DateField(auto_now_add=True)
-    codigoCliente = models.CharField(max_length=100)
-    lote = models.CharField(max_length=8)
-    quantidadeProduzida = models.IntegerField()
-    numeroDeFuncionarios = models.IntegerField()
-    motivoParada = models.CharField(max_length=100, choices=MOTIVOS_DE_PARADA)
-    observacoes = models.TextField()
-
-    tempoParado = models.FloatField(null=True)
-    tempoProduzido = models.FloatField(null=True)
-
-
+    cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE, related_name='lotes')
+    codigo_lote = models.CharField(max_length=50, unique=True)
+    data_criacao = models.DateTimeField(auto_now_add=True)
+    quantidade_containers_prevista = models.PositiveIntegerField()
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='PLANEJADO')
 
     def __str__(self):
-        return f"{self.data} - {self.turno} - {self.quantidadeProduzida} un"
+        return f"Lote {self.codigo_lote} - {self.cliente.nome}"
+
+    @property
+    def total_sacos_estimado(self):
+        # 1 container = 22 pacotes * 84 sacos
+        return self.quantidade_containers_prevista * 22 * 84
+
+class Container(models.Model):
+    id = models.AutoField(primary_key=True)
+    lote = models.ForeignKey(Lote, on_delete=models.CASCADE, related_name='containers')
+    identificador = models.CharField(max_length=100) # Ex: Sigla do container físico
+    data_carregamento = models.DateTimeField(null=True, blank=True)
+
+    def __str__(self):
+        return f"Container {self.identificador} (Lote {self.lote.codigo_lote})"
+
+class Pacote(models.Model):
+    id = models.AutoField(primary_key=True)
+    container = models.ForeignKey(Container, on_delete=models.CASCADE, related_name='pacotes')
+    numero_sequencial = models.PositiveIntegerField()
+    quantidade_sacos = models.PositiveIntegerField(default=84) # 84 sacos por pacote
+    peso_saco_kg = models.DecimalField(max_digits=5, decimal_places=2, default=15.0)
+
+    def __str__(self):
+        return f"Pacote {self.numero_sequencial} - {self.container.identificador}"
+    
+class Usuario(models.Model):
+    id = models.AutoField(primary_key=True)
+    nome = models.CharField(max_length=200)
+    email = models.EmailField(unique=True)
+
+    def __str__(self):
+        return self.nome

@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %} 
+
+<div class="title-home-global container container-fluid">
+    <h1>Bem vindo ao sistema de Gerenciamento de Produção de Pellets!</h1>
+    <p class="h3 text-dark">Primeiro selecione sua função no sistema:</p>
+    <button class="btn user-btn btn-primary" data-url="{% url 'login_user' %}">OPERADOR</button>
+    <button class="btn btn-primary admin-btn" data-url="{% url 'login_admin' %}">GERENTE</button>
+</div>
+
+{% endblock %}

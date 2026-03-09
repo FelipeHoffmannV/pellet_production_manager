@@ -1,0 +1,22 @@
+.gradient {
+  background: #091E3A;
+  background: linear-gradient(
+    to right,
+    #091E3A,#2F80ED,#2D9EE0
+  );
+}
+
+.title-home-global{
+  position: relative;
+  margin-top: 250px;
+  display: block;
+  justify-content: center;
+  justify-items: center;
+  align-items: center;
+}
+
+.title-home-global button{
+  position: relative;
+  left: 25%;
+  width: 300px;
+}

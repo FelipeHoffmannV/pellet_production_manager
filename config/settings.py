@@ -75,16 +75,7 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
-if DEBUG:
-    DATABASES = {
-           'default': {
-               'ENGINE': 'django.db.backends.sqlite3',
-               'NAME': BASE_DIR / 'db.sqlite3',
-        }
-    }
-else:
-
-   DATABASES = {
+DATABASES = {
             'default': {
             'ENGINE': 'django.db.backends.postgresql',
             'NAME': 'pellets_manager_db',
@@ -115,7 +106,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-AUTH_USER_MODEL = 'pellet.Usuario'
+
 
 
 # Internationalization
@@ -123,7 +114,7 @@ AUTH_USER_MODEL = 'pellet.Usuario'
 
 LANGUAGE_CODE = 'pt-br'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Sao_Paulo'
 
 USE_I18N = True
 
@@ -133,4 +124,4 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = 'apps/pellet/static/'
