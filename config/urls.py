@@ -15,12 +15,11 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path,include
 from apps.pellet import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.home_global, name='home_global'),
-    path('login_user/', views.login_user, name='login_user'),
-    path('login_admin/', views.login_admin, name='login_admin'),
+    path('', include('apps.users.urls')),
+    path('index/', include('apps.pellet.urls'))
 ]
